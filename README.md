@@ -15,7 +15,7 @@ Prerequisites
 Steps
 - Clone the GitHub project:
 ```
-git clone https://github.com/taulinger/ccrypt-j-cli
+git clone https://github.com/taulinger/kotlin-jersey
 ```
 - Change to the git repository and run Maven:
 ```
