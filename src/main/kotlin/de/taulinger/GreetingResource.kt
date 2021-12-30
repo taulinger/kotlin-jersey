@@ -1,5 +1,6 @@
 package de.taulinger
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -10,7 +11,7 @@ import javax.ws.rs.core.MediaType
 @Path("greeting")
 class GreetingResource {
 
-    data class GreetingJson(val greeting: String)
+    data class GreetingJson(@JsonProperty("greeting") val greeting: String)
 
     @Inject
     lateinit var greetingService: IGreetingService

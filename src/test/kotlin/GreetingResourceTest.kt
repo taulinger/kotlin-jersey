@@ -26,29 +26,59 @@ class GreetingResourceTest : JerseyTest() {
 
     @Test
     fun `when query param 'name' is missing, it should provide a fallback message`() {
-        val result = "unknown"
-        Mockito.`when`(greetingService.getGreetings(null)).thenReturn(result)
+        val expectedResult = "unknown"
+        Mockito.`when`(greetingService.getGreetings(null)).thenReturn(expectedResult)
 
-        val response = target("/greeting/")
+        val response = target("greeting")
             .request()
             .get()
 
         assertEquals(Response.Status.OK.statusCode, response.status)
-        assertEquals(result, response.readEntity(String::class.java))
+        assertEquals(expectedResult, response.readEntity(String::class.java))
     }
 
     @Test
     fun `it should provide a greeting message`() {
         val name = "foo"
-        val result = "Hello Foo!"
-        Mockito.`when`(greetingService.getGreetings(name)).thenReturn(result)
+        val expectedResult = "Hello Foo!"
+        Mockito.`when`(greetingService.getGreetings(name)).thenReturn(expectedResult)
 
-        val response = target("/greeting/")
+        val response = target("greeting")
             .queryParam("name", name)
             .request()
             .get()
 
         assertEquals(Response.Status.OK.statusCode, response.status)
-        assertEquals(result, response.readEntity(String::class.java))
+        assertEquals(expectedResult, response.readEntity(String::class.java))
+    }
+
+    @Test
+    fun `when query param 'name' is missing, it should provide a fallback message as JSON`() {
+        val expectedResult = "unknown"
+        Mockito.`when`(greetingService.getGreetings(null)).thenReturn(expectedResult)
+
+        val response = target("greeting")
+            .path("json")
+            .request()
+            .get()
+
+        assertEquals(Response.Status.OK.statusCode, response.status)
+        assertEquals(GreetingResource.GreetingJson(expectedResult), response.readEntity(GreetingResource.GreetingJson::class.java))
+    }
+
+    @Test
+    fun `it should provide a greeting message as JSON`() {
+        val name = "foo"
+        val expectedResult = "Hello Foo!"
+        Mockito.`when`(greetingService.getGreetings(name)).thenReturn(expectedResult)
+
+        val response = target("greeting")
+            .path("json")
+            .queryParam("name", name)
+            .request()
+            .get()
+
+        assertEquals(Response.Status.OK.statusCode, response.status)
+        assertEquals(GreetingResource.GreetingJson(expectedResult), response.readEntity(GreetingResource.GreetingJson::class.java))
     }
 }
