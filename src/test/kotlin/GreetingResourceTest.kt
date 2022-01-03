@@ -1,12 +1,12 @@
 import de.taulinger.GreetingResource
 import de.taulinger.IGreetingService
+import jakarta.ws.rs.core.Application
 import org.glassfish.jersey.internal.inject.AbstractBinder
 import org.glassfish.jersey.server.ResourceConfig
 import org.glassfish.jersey.test.JerseyTest
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import javax.ws.rs.core.Application
-import javax.ws.rs.core.Response
+import jakarta.ws.rs.core.Response
 import kotlin.test.assertEquals
 
 
